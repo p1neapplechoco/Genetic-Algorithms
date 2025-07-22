@@ -6,10 +6,10 @@
 #include <random>
 #include "individual.h"
 
-#define MAX_POPULATION 100
-#define ELITE_INDIVIDUALS 3
+#define MAX_POPULATION 1000
+#define ELITE_INDIVIDUALS 999
 
-const std::string task = "Anh em len cho toi phim 36.";
+const std::string task = "This is a secret message.";
 const int length_of_genes = task.length();
 
 void natural_selection(std::vector<Individual> &population)
