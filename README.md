@@ -31,4 +31,4 @@
 
 ## Implementation
 
-### Introduction Task (Guessing Words)
+### Introduction Task (Guessing Sentence)
