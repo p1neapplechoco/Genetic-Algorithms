@@ -50,7 +50,7 @@ const std::string task = "This is a secret message.";
 std::vector<Individual> population;
 
 for (int i = 0; i < MAX_POPULATION; i++)
-population.push_back(Individual(length_of_genes));
+	population.push_back(Individual(length_of_genes));
 ```
 - The mutation chance will be 10%.
 ### Individual Class
@@ -82,45 +82,45 @@ void natural_selection(std::vector<Individual> &population)
 ```cpp
 while (population[0].genes_ != task)
 {
-std::unordered_set<int> mated;
-std::vector<Individual> successors;
-
-std::sort(population.begin(), population.end());
+	std::unordered_set<int> mated;
+	std::vector<Individual> successors;
 	
-for (int i = 0; i < ELITE_INDIVIDUALS; i++)
-{
-    successors.push_back(population[i]);
-}
-
-for (int p1 = 0; p1 < (int)population.size() && successors.size() < MAX_POPULATION; ++p1)
-{
-    if (mated.count(p1))
-	continue;
-    for (int p2 = p1 + 1; p2 < (int)population.size() && successors.size() < MAX_POPULATION; ++p2)
-    {
-	if (mated.count(p2))
-	    continue;
-
-	int num_of_children = random_int(1, 3);
-	while (num_of_children-- && successors.size() < MAX_POPULATION)
+	std::sort(population.begin(), population.end());
+		
+	for (int i = 0; i < ELITE_INDIVIDUALS; i++)
 	{
-	    Individual child = population[p1].mate(population[p2]);
-	    successors.push_back(child);
+	    successors.push_back(population[i]);
 	}
-
-	mated.insert(p1);
-	mated.insert(p2);
-	break;
-    }
-
-    if (successors.size() >= MAX_POPULATION)
-	break;
-}
-
-population.clear();
-population = successors;
-
-natural_selection(population);
+	
+	for (int p1 = 0; p1 < (int)population.size() && successors.size() < MAX_POPULATION; ++p1)
+	{
+	    if (mated.count(p1))
+		continue;
+	    for (int p2 = p1 + 1; p2 < (int)population.size() && successors.size() < MAX_POPULATION; ++p2)
+	    {
+		if (mated.count(p2))
+		    continue;
+	
+		int num_of_children = random_int(1, 3);
+		while (num_of_children-- && successors.size() < MAX_POPULATION)
+		{
+		    Individual child = population[p1].mate(population[p2]);
+		    successors.push_back(child);
+		}
+	
+		mated.insert(p1);
+		mated.insert(p2);
+		break;
+	    }
+	
+	    if (successors.size() >= MAX_POPULATION)
+		break;
+	}
+	
+	population.clear();
+	population = successors;
+	
+	natural_selection(population);
 }
 ```
 
