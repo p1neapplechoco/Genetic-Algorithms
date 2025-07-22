@@ -38,19 +38,19 @@
 ### Initialization
 - A **generation** will have the **maximum** of 1000 **Individuals**.
 ```cpp
-	#define MAX_POPULATION 1000
+#define MAX_POPULATION 1000
 ```
 - We then initialize the first generation with `MAX_POPULATION` individuals with their genes having been randomly initialized.
 - Our target sentence will be `This is a secret message.`
 ```cpp
-	const std::string task = "This is a secret message.";
+const std::string task = "This is a secret message.";
 ```
 
 ```cpp
-    std::vector<Individual> population;
+std::vector<Individual> population;
 
-    for (int i = 0; i < MAX_POPULATION; i++)
-        population.push_back(Individual(length_of_genes));
+for (int i = 0; i < MAX_POPULATION; i++)
+population.push_back(Individual(length_of_genes));
 ```
 - The mutation chance will be 10%.
 ### Individual Class
@@ -64,64 +64,64 @@
 ### Elitism Process
 - We will carry a portion of survivor from the previous generation to the successor *(will be explained later why)*.
 ```cpp
-	#define ELITE_INDIVIDUALS 3
+#define ELITE_INDIVIDUALS 3
 ```
 
 ### Natural Selection & Reproduction
 ```cpp
-	void natural_selection(std::vector<Individual> &population)
-	{
-	    for (Individual &inv : population)
-	        inv.calculate_loss(task);
-	}
+void natural_selection(std::vector<Individual> &population)
+{
+    for (Individual &inv : population)
+	inv.calculate_loss(task);
+}
 ```
 - We will first pick the top individuals from the previous generation for the reproduction process after loss calculation.
 - Each parents can have a random number of children (1 to 3) to ensure there will be no extinction happening.
 - Repeat until the best genes match with the target `task`.
 
 ```cpp
-	while (population[0].genes_ != task)
+while (population[0].genes_ != task)
+{
+std::unordered_set<int> mated;
+std::vector<Individual> successors;
+
+std::sort(population.begin(), population.end());
+	
+for (int i = 0; i < ELITE_INDIVIDUALS; i++)
+{
+    successors.push_back(population[i]);
+}
+
+for (int p1 = 0; p1 < (int)population.size() && successors.size() < MAX_POPULATION; ++p1)
+{
+    if (mated.count(p1))
+	continue;
+    for (int p2 = p1 + 1; p2 < (int)population.size() && successors.size() < MAX_POPULATION; ++p2)
     {
-        std::unordered_set<int> mated;
-        std::vector<Individual> successors;
+	if (mated.count(p2))
+	    continue;
 
-        std::sort(population.begin(), population.end());
-		
-        for (int i = 0; i < ELITE_INDIVIDUALS; i++)
-        {
-            successors.push_back(population[i]);
-        }
+	int num_of_children = random_int(1, 3);
+	while (num_of_children-- && successors.size() < MAX_POPULATION)
+	{
+	    Individual child = population[p1].mate(population[p2]);
+	    successors.push_back(child);
+	}
 
-        for (int p1 = 0; p1 < (int)population.size() && successors.size() < MAX_POPULATION; ++p1)
-        {
-            if (mated.count(p1))
-                continue;
-            for (int p2 = p1 + 1; p2 < (int)population.size() && successors.size() < MAX_POPULATION; ++p2)
-            {
-                if (mated.count(p2))
-                    continue;
-
-                int num_of_children = random_int(1, 3);
-                while (num_of_children-- && successors.size() < MAX_POPULATION)
-                {
-                    Individual child = population[p1].mate(population[p2]);
-                    successors.push_back(child);
-                }
-
-                mated.insert(p1);
-                mated.insert(p2);
-                break;
-            }
-
-            if (successors.size() >= MAX_POPULATION)
-                break;
-        }
-
-        population.clear();
-        population = successors;
-
-        natural_selection(population);
+	mated.insert(p1);
+	mated.insert(p2);
+	break;
     }
+
+    if (successors.size() >= MAX_POPULATION)
+	break;
+}
+
+population.clear();
+population = successors;
+
+natural_selection(population);
+}
 ```
 
 ### Why Elitism?
