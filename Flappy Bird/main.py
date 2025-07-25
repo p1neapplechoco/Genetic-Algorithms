@@ -12,14 +12,16 @@ GRAVITY = 2
 MUTATION_CHANCE = 0.1
 MAX_POPULATION = 100
 ELITE_INDIVIDUALS = 40
-NUM_OF_GENERATIONS = 50000
-RENDER = True  # Turn to True if you want to see the simulation
+NUM_OF_GENERATIONS = 500
+RENDER = False  # Turn to True if you want to see the simulation
 
 # === INIT ===
 if RENDER:
     pygame.init()
     WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
     pygame.display.set_caption("Flappy Bird GA")
+else:
+    WIN = None  # avoid using WIN if rendering is disabled
 
 # === CLASSES ===
 
@@ -54,6 +56,7 @@ class Pipe:
     VELOCITY = 8
     WIDTH = 80
     BODY_HEIGHT = 400
+    random.seed(42)
 
     def __init__(self, x):
         self.x = x
@@ -92,11 +95,7 @@ def mate(parent_1: BirdAI, parent_2: BirdAI) -> List[int]:
         elif p < (1 - MUTATION_CHANCE):
             child.append(parent_2.genes[i])
         else:
-            parent = np.random.randint(2)
-            if parent == 0:
-                child.append(1 - parent_1.genes[i])
-            elif parent == 1:
-                child.append(1 - parent_2.genes[i])
+            child.append(np.random.randint(2))
     return child
 
 
@@ -169,7 +168,7 @@ def genetic_alg():
                 if i == j or j in mated:
                     continue
 
-                num_kids = random.randint(1, 3)
+                num_kids = random.randint(1, 4)
                 while num_kids and len(next_gen) < MAX_POPULATION:
                     child_genes = mate(p1, p2)
                     next_gen.append(BirdAI(child_genes))
