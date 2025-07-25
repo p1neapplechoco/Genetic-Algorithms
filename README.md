@@ -280,5 +280,7 @@ ELITE_INDIVIDUALS = 40
 ### Results
 
 - After 10 minutes of training, the best individual achieved only about 3.2 seconds of survival, with no significant improvement beyond that.
+
 ![bad](./medias/flappy_ga.gif)
+
 - The main issue appears to be the lack of environmental awareness. Since the genetic algorithm has no access to the game state (e.g., pipe positions, bird height), it can only optimize blindly — a known limitation of pure GAs in dynamic environments.
