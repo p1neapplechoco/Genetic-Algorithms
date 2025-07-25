@@ -127,7 +127,7 @@ while (population[0].genes_ != task)
 ### Why Elitism?
 - Without elitism, it’s possible for all offspring to drift away from the current best solutions, causing the algorithm to get “stuck” in suboptimal loops. Elitism guarantees that the best genes always survive to the next generation, which accelerates convergence.
 
-![Elitism.png](./imgs/Elitism.png)
+![Elitism.png](./medias/Elitism.png)
 
 ### Experiments
 #### Mutation chance of 0%
@@ -251,4 +251,34 @@ Best genes: This is a secret message. , loss: 0
 - [Knapsack Problem](./NP-Hard/knapsack/knapsack.md).
 - [N-Queens Problem](https://github.com/ThuongHong/Genetic-Algorithms).
 
-## From GAs to RL (Reinforcement Learning)
+## Flappy Bird
+
+- Flappy Bird is a simple yet challenging side-scrolling game where the player controls a bird attempting to fly between columns of pipes without hitting them. The bird automatically descends due to gravity, and the player can make it "flap" to ascend briefly. Despite its basic mechanics, the game requires precise timing and decision-making, making it an interesting candidate for AI experimentation.
+
+![bad](./medias/flappy.gif)
+
+### Framework
+- This implementation uses Pygame, a Python library for building graphical applications.
+
+### Evolution Process
+
+#### Configuration
+
+- The simulation was run for 10,000 generations using the following settings:
+```python
+MUTATION_CHANCE = 0.2
+MAX_POPULATION = 100
+ELITE_INDIVIDUALS = 40
+```
+
+- Each bird is represented by a binary gene sequence, where each bit indicates whether the bird should flap on a given frame (up to 600 frames total).
+
+- The fitness score is based on how long the bird survives — longer survival yields higher fitness.
+
+- The playfield (obstacle layout, speed, etc.) is fixed to ensure consistent evaluation.
+
+### Results
+
+- After 10 minutes of training, the best individual achieved only about 3.2 seconds of survival, with no significant improvement beyond that.
+![bad](./medias/flappy_ga.gif)
+- The main issue appears to be the lack of environmental awareness. Since the genetic algorithm has no access to the game state (e.g., pipe positions, bird height), it can only optimize blindly — a known limitation of pure GAs in dynamic environments.

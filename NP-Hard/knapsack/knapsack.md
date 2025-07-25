@@ -119,7 +119,7 @@ Recursive Answer: [1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0
 Evolution Answer: [1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1], relativity to true answer: 99.80430528375733%
 ```
 - As we can see, the answer of each approach has almost the same value, whereas the brute-force approach always gives us the perfect solution in constrast of GAs.
-- But what will surprise us is the time it tooked for each ways:
+- But what will surprise us is the time it took for each method:
 ![Times](./imgs/fig1.png)
 
 - In the beginning, brute-force seems to be the ways for this problem, but the cut-off starts at 25 items, where time just seems to grow exponentially. On the other hand, GAs seem like a constant time even.
