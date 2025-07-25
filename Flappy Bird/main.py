@@ -5,14 +5,14 @@ from typing import List
 
 # === CONFIG ===
 FPS = 30
-MAX_SEC = 10
+MAX_SEC = 20
 WIN_WIDTH = 500
 WIN_HEIGHT = 800
 GRAVITY = 2
-MUTATION_CHANCE = 0.1
+MUTATION_CHANCE = 0.2
 MAX_POPULATION = 100
 ELITE_INDIVIDUALS = 40
-NUM_OF_GENERATIONS = 500
+NUM_OF_GENERATIONS = 200
 RENDER = False  # Turn to True if you want to see the simulation
 
 # === INIT ===
@@ -252,6 +252,8 @@ def display_best_individual(best_bird: BirdAI):
         frame_paths.append(frame_path)
 
         frame += 1
+
+    print(f"Survived for: {frame / FPS}")
 
     # Use moviepy to turn frames into video
     video_clip = ImageSequenceClip(frame_paths, fps=FPS)
