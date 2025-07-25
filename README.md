@@ -245,3 +245,7 @@ Best genes: This is a secret message. , loss: 0
 | **50 elites**          | Converges in \~330 generations                                                |
 | **500 elites**         | Converges in \~85 generations                                                 |
 | **999 elites**         | Too many elites ⇒ slows improvement, though eventual convergence still occurs |
+
+## NP-Hard Problems
+
+- [Knapsack Problem](./NP-Hard/knapsack/knapsack.md).
