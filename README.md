@@ -219,7 +219,7 @@ Best genes: This is a secret message. , loss: 0
 ```
 
 #### With 999 Elite Individuals
-- But there will be a sweet spot for finding the correct genes, the more elite individuals, the more bad genes we will be including in the next generation, so be careful.
+- However, the more elite individuals the more bad genes will be included in the next generation, so be careful.
 ```
 ...
 << Generation: 29717 >>
