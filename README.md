@@ -249,3 +249,6 @@ Best genes: This is a secret message. , loss: 0
 ## NP-Hard Problems
 
 - [Knapsack Problem](./NP-Hard/knapsack/knapsack.md).
+- [N-Queens Problem](https://github.com/ThuongHong/Genetic-Algorithms).
+
+## From GAs to RL (Reinforcement Learning)
